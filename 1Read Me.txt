@@ -1,0 +1,11 @@
+For the main admin:
+email: mainadmin@farmtodesk.com
+password: farmers
+
+For the farmers:
+email: admin@farmtodesk.com
+password: farmers
+
+Sample user:
+email: tasdid@hossain.com
+password: 123

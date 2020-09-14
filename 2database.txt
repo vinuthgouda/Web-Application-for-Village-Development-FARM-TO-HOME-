@@ -1,0 +1,189 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: November 29, 2019 at 07:11 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 5.6.35
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `farmtodesk`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(15) NOT NULL,
+  `product_code` varchar(255) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `price` int(10) NOT NULL,
+  `units` int(5) NOT NULL,
+  `total` int(15) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `email` varchar(255) NOT NULL,
+  `product_img_name` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `shipping` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `product_code`, `product_name`, `price`, `units`, `total`, `date`, `email`, `product_img_name`, `status`, `shipping`) VALUES
+(1, 'OSX', 'Tomato', 26, 6, 156, '2019-11-28 04:58:44', 'vinni.com', 'tomato.jpg', 0, ''),
+(2, 'OOP', 'Brinjal',30, 5, 150, '2019-11-28 04:58:44','rice6boro.jpg', 0, ''),
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `product_code` varchar(60) NOT NULL,
+  `product_name` varchar(60) NOT NULL,
+  `product_desc` tinytext NOT NULL,
+  `product_img_name` varchar(60) NOT NULL,
+  `qty` int(5) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `Category` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `product_code`, `product_name`, `product_desc`, `product_img_name`, `qty`, `price`, `Category`) VALUES
+(1, 'CAG', 'Carrot', 'Fresh and ready to be delivered', 'carrot.jpg', 14, '23.00', 'vegetable'),
+(2, 'OSC', 'Bottle gourd', 'Fresh and ready to be delivered', 'lau.jpg', 20, '19.00', 'vegetable'),
+(3, 'OOS', 'Beans', 'Fresh and ready to be delivered', 'motorshuti.jpg', 25, '23.00', 'vegetable'),
+(4, 'APS', 'Raddish', 'Fresh and ready to be delivered', 'raddish.jpg', 21, '30.00', 'vegetable'),
+(5, 'OSX', 'Tomato', 'Fresh and ready to be delivered', 'tomato.jpg', 66, '26.00', 'vegetable'),
+(6, 'SRA', 'Beef', 'Fresh and ready to be delivered', 'beef.jpg', 36, '500.00', 'meat'),
+(7, 'STU', 'Lamb', 'Fresh and ready to be delivered', 'lamb.jpg', 70, '650.00', 'meat'),
+(8, 'ISO', 'Chicken', 'Fresh and ready to be delivered', 'chicken.jpg', 80, '150.00', 'meat'),
+(9, 'ISW', 'Steak', 'Fresh and ready to be delivered', 'steak.jpg', 40, '800.00', 'meat'),
+(10, 'SAE', 'Goat ', 'Fresh and ready to be delivered', 'goat.jpg', 50, '640.00', 'meat');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `promo`
+--
+
+CREATE TABLE `promo` (
+  `p_id` int(11) NOT NULL,
+  `promocode` varchar(5) NOT NULL,
+  `promo_value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `promo`
+--
+
+INSERT INTO `promo` (`p_id`, `promocode`, `promo_value`) VALUES
+(1, 'RVCE', 20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `fname` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `tokenExpire` varchar(255) NOT NULL,
+  `lname` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `phone` int(10) NOT NULL,
+  `pin` int(6) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(15) NOT NULL,
+  `type` varchar(20) NOT NULL DEFAULT 'user'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `fname`, `lname`, `address`, `city`, `pin`, `email`, `password`, `type`) VALUES
+(1, 'Vinuth', 'kumar', 'India', 'Banglore', 95014, 'admin@farmtodesk.com', 'farmers', 'admin'),
+(2, 'veeresh', 'asd', 'asd', 'asd', 1233, 'aa@aa.com', '123', 'user'),
+(3, 'Admin', 'Main', '000', 'Hubli', 7, 'mainadmin@farmtodesk.com', 'farmers', 'admin');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `product_code` (`product_code`);
+
+--
+-- Indexes for table `promo`
+--
+ALTER TABLE `promo`
+  ADD PRIMARY KEY (`p_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
